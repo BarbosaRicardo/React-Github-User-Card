@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom' //is this being used?
 import axios from 'axios'
 
 class Followers extends React.Component {
@@ -7,24 +7,34 @@ class Followers extends React.Component {
     * This is the first phase in the component lifecycle.
     * constructor is called in the initialization 
     * of a class.
+    * not 100% required to use constructor however
     */
-   contructor() {
+   constructor() {
       //super is called to inherit methods from React.Component
       super();
       this.state={
-         followerdata: [] //initializes empty array
+         followerData: [] //initializes empty array
       }
    }
 
-   //
+   /**
+    * MOUNTING CYCLE
+    * Commit Phase: 
+    * can work with DOM, run side effects, schedule updates
+    */
    componentDidMount() {
       //call axios
       axios
          .get(`https://api.github.com/users/barbosaricardo/followers`)
-         // setState in the promise 
+         
+         /**
+          * UPDATING CYCLE
+          * Render Phase:
+          * setState will cause render
+          */ 
          .then(res => {
             this.setState({
-               followerdata: res.data
+               followerData: res.data
             }); //end of setState in promise
 
             //console.log res.data
@@ -35,23 +45,27 @@ class Followers extends React.Component {
          // .catch(err => console.log(err, 'Data does no exist'));
    }
 
-   //call render
+   /**
+    * MOUNTING/UPDATING CYCLE
+    * Render Phase:
+    */
    render() {
       return (
          //for styling purposes name the class
          <div className='follower-container'> 
-            {this.state.followerdata.map(follower=> (
+            {this.state.followerData.map(follower=> (
                <div className='cards' key={follower.id}>
                   <img src={follower.avatar_url} />
                   <h2>{follower.login}</h2>
                   <p>Github URL:
-                     <a href={follower.url}>{folower.html_url}</a>
+                     <a href={follower.url}>{follower.html_url}</a>
                   </p>
                </div>
             ))}
          </div>
-      )
+      );// end of return statement
    }
 }
 
+//export of default **component function**
 export default Followers;

@@ -1,4 +1,6 @@
 import React from 'react';
+import Followers from './components/Followers.js';
+import Profile from './components/Profile.js'
 import './App.css';
 
 function App() {
