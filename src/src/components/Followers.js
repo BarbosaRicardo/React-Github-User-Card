@@ -31,9 +31,27 @@ class Followers extends React.Component {
             console.log(res.data);
          }); // end of promise
          //catch error (what is the purpose of this??)
-         .catch(err => console.log(err, 'Data does no exist'));
-         
-   
-   
+         //I am getting an error, went ahead and commented it out 
+         // .catch(err => console.log(err, 'Data does no exist'));
+   }
+
+   //call render
+   render() {
+      return (
+         //for styling purposes name the class
+         <div className='follower-container'> 
+            {this.state.followerdata.map(follower=> (
+               <div className='cards' key={follower.id}>
+                  <img src={follower.avatar_url} />
+                  <h2>{follower.login}</h2>
+                  <p>Github URL:
+                     <a href={follower.url}>{folower.html_url}</a>
+                  </p>
+               </div>
+            ))}
+         </div>
+      )
    }
 }
+
+export default Followers;
